@@ -37,7 +37,7 @@ class ListRepos extends Component {
           (24 * 60 * 60 * 1000)
       ),
       ownerName: repo.owner.login,
-      repoUrl: repo.repoUrl
+      repoUrl: repo.html_url
     }));
 
     console.log(pageRepos);
