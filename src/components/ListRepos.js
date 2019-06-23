@@ -25,7 +25,7 @@ class ListRepos extends Component {
                     avatarUrl:repo.owner.avatar_url,
                     nbStars: repo.stargazers_count,
                     nbIssues:repo.open_issues_count,
-                    timeInterval:repo.timeInterval,
+                    timeInterval:Math.floor((Date.parse(new Date()) - Date.parse(repo.created_at))/(24*60*60*1000)),
                     ownerName:repo.owner.login,
                     repoUrl:repo.repoUrl
                 }));
