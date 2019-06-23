@@ -13,8 +13,9 @@ class ListRepos extends Component {
     }   
      
     loadRepos = async () => {
+        const dateBefore = this.getDateBefore(30);
         axios.defaults.baseURL = 'https://api.github.com';
-        const res = await axios.get('https://api.github.com/search/repositories?q=created:>2017-10-22&sort=stars&order=desc');
+        const res = await axios.get('/search/repositories?q=created:>'+dateBefore+'&sort=stars&order=desc');
         
         console.log(res);
         const repos = res.data.items
@@ -33,6 +34,15 @@ class ListRepos extends Component {
 
     }
 
+    getDateBefore = (days) => {
+        var today = new Date();
+        today.setDate(today.getDate() - days);
+            console.log(today);
+        return today
+          .toISOString()
+          .substring(0, 10)
+          .trim();
+    }
 
     render() {
         const {repos} = this.state;
