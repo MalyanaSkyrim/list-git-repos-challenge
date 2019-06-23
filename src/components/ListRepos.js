@@ -1,45 +1,32 @@
 import React, { Component } from 'react'
 import RowRepo from './RowRepo';
+import axios from 'axios'
 
 class ListRepos extends Component {
-
+    state = {
+        repos: []
+    }
     
+    
+    componentDidMount(){
+        this.loadRepos();
+    }   
+     
+    loadRepos = async () => {
+        axios.defaults.baseURL = 'https://api.github.com';
+        const res = await axios.get('https://api.github.com/search/repositories?q=created:>2017-10-22&sort=stars&order=desc');
+        
+        console.log(res);
+        const repos = res.data.items;
+
+        this.setState({repos});
+
+    }
+
 
     render() {
-        const repos = [
-            {
-                title:"Title repo 1",
-                description:"description dzuhzhd repo 1 test test",
-                avatarUrl: "https://picsum.photos/300/300", 
-                nbStars:300,
-                nbIssues:4,
-                timeInterval:5,
-                ownerName:"owner 1",
-                repoUrl:"https://picsum.photos/"
-            },
-            {
-                title:"Title repo 2",
-                description:"description dzuhzhd repo 2 test test",
-                avatarUrl: "https://picsum.photos/200/300", 
-                nbStars:100,
-                nbIssues:7,
-                timeInterval:20,
-                ownerName:"owner 2",
-                repoUrl:"https://picsum.photos/"
+        const {repos} = this.state;
 
-            },
-            {
-                title:"Title repo 3",
-                description:"description dzuhzhd repo 3 test test",
-                avatarUrl: "https://picsum.photos/300/200", 
-                nbStars:200,
-                nbIssues:3,
-                timeInterval:10,
-                ownerName:"owner 3",
-                repoUrl:"https://picsum.photos/"
-
-            }
-        ]
         return (
             <div className="listRepos-container">
                 {repos.map((repo, index) => (

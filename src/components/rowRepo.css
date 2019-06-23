@@ -11,6 +11,7 @@
     display: inline-block;
     width: 30%;
     max-width: 178px;
+    max-height: 178px;
   }
   .row-repo__text {
     display: inline-block;
