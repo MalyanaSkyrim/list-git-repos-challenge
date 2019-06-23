@@ -1,55 +1,79 @@
-import React, { Component } from 'react'
-import RowRepo from './RowRepo';
-import axios from 'axios'
+import React, { Component } from "react";
+import RowRepo from "./RowRepo";
+import axios from "axios";
+import InfiniteScroll from "react-infinite-scroller";
 
 class ListRepos extends Component {
-    state = {
-        repos: []
+  state = {
+    repos: [],
+    hasMore: true
+  };
+
+  componentDidMount() {
+    this.loadRepos();
+  }
+
+  loadRepos = async (page) => {
+
+    if(page==10){
+        this.setState({hasMore:false});
+        return;
     }
+    const dateBefore = this.getDateBefore(30);
+    axios.defaults.baseURL = "https://api.github.com";
+    const res = await axios.get(
+      "/search/repositories?q=created:>" + dateBefore + "&sort=stars&order=desc&page="+page
+    );
+
     
+    const pageRepos = res.data.items.map(repo => ({
+      title: repo.name,
+      description: repo.description,
+      avatarUrl: repo.owner.avatar_url,
+      nbStars: repo.stargazers_count,
+      nbIssues: repo.open_issues_count,
+      timeInterval: Math.floor(
+        (Date.parse(new Date()) - Date.parse(repo.created_at)) /
+          (24 * 60 * 60 * 1000)
+      ),
+      ownerName: repo.owner.login,
+      repoUrl: repo.repoUrl
+    }));
+
+    console.log(pageRepos);
+    const {repos} = this.state;
+
+    repos.push( ...pageRepos);    
     
-    componentDidMount(){
-        this.loadRepos();
-    }   
-     
-    loadRepos = async () => {
-        const dateBefore = this.getDateBefore(30);
-        axios.defaults.baseURL = 'https://api.github.com';
-        const res = await axios.get('/search/repositories?q=created:>'+dateBefore+'&sort=stars&order=desc');
-        
-        console.log(res);
-        const repos = res.data.items
-                .map(repo => ({
-                    title:repo.name,
-                    description:repo.description,
-                    avatarUrl:repo.owner.avatar_url,
-                    nbStars: repo.stargazers_count,
-                    nbIssues:repo.open_issues_count,
-                    timeInterval:Math.floor((Date.parse(new Date()) - Date.parse(repo.created_at))/(24*60*60*1000)),
-                    ownerName:repo.owner.login,
-                    repoUrl:repo.repoUrl
-                }));
+    this.setState({ repos});
+  };
 
-        this.setState({repos});
+  getDateBefore = days => {
+    var today = new Date();
+    today.setDate(today.getDate() - days);
+    console.log(today);
+    return today
+      .toISOString()
+      .substring(0, 10)
+      .trim();
+  };
 
-    }
+  render() {
+    const { repos,hasMore } = this.state;
 
-    getDateBefore = (days) => {
-        var today = new Date();
-        today.setDate(today.getDate() - days);
-            console.log(today);
-        return today
-          .toISOString()
-          .substring(0, 10)
-          .trim();
-    }
-
-    render() {
-        const {repos} = this.state;
-
-        return (
-            <div className="listRepos-container">
-                {repos.map((repo, index) => (
+    return (
+      <div className="listRepos-container">
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={this.loadRepos}
+          hasMore={hasMore}
+          loader={
+            <div className="loader" key={0}>
+                <img src="wait.gif"></img>
+            </div>
+          }
+        >
+          {repos.map((repo, index) => (
             <RowRepo
               key={index}
               title={repo.title}
@@ -62,9 +86,10 @@ class ListRepos extends Component {
               repoUrl={repo.repoUrl}
             />
           ))}
-            </div>
-        )
-    }
+        </InfiniteScroll>
+      </div>
+    );
+  }
 }
 
-export default ListRepos
+export default ListRepos;
