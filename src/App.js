@@ -1,10 +1,11 @@
 import React from 'react';
+import ListRepos from './components/ListRepos';
 
 function App() {
   return (
-    <div className="App">
-
-    </div>
+    <>
+      <ListRepos></ListRepos>
+    </>
   );
 }
 
