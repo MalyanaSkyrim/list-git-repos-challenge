@@ -9,13 +9,11 @@ class ListRepos extends Component {
     hasMore: true
   };
 
-  componentDidMount() {
-    this.loadRepos();
-  }
+ 
 
   loadRepos = async (page) => {
 
-    if(page==10){
+    if(page===10){
         this.setState({hasMore:false});
         return;
     }
@@ -69,7 +67,7 @@ class ListRepos extends Component {
           hasMore={hasMore}
           loader={
             <div className="loader" key={0}>
-                <img src="wait.gif"></img>
+                <img src="wait.gif" alt="wait gif"></img>
             </div>
           }
         >
