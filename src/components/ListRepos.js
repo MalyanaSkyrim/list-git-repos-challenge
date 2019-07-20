@@ -9,9 +9,7 @@ class ListRepos extends Component {
     hasMore: true
   };
 
-  componentDidMount() {
-    this.loadRepos();
-  }
+ 
 
   loadRepos = async (page) => {
 
