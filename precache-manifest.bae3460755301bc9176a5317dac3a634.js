@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0c7bf8449f805cbd728de8533815a673",
+    "revision": "fb958d9a8a3b165c93e55e4ff3f8ddec",
     "url": "/list-git-repos-challenge/index.html"
   },
   {
-    "revision": "7428c9b87556ce5d4485",
-    "url": "/list-git-repos-challenge/static/css/main.e532c95f.chunk.css"
+    "revision": "af14380c1d164763a541",
+    "url": "/list-git-repos-challenge/static/css/main.5e897274.chunk.css"
   },
   {
     "revision": "9c9d8a48fe33f2a336a5",
     "url": "/list-git-repos-challenge/static/js/2.088ce145.chunk.js"
   },
   {
-    "revision": "7428c9b87556ce5d4485",
-    "url": "/list-git-repos-challenge/static/js/main.dc7a985b.chunk.js"
+    "revision": "af14380c1d164763a541",
+    "url": "/list-git-repos-challenge/static/js/main.7a87b4d1.chunk.js"
   },
   {
     "revision": "179d3dc097fe4ed73dfb",
