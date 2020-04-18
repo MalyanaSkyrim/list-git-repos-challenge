@@ -14,7 +14,7 @@ function RowRepo({
 }) {
   return (
     <div className="row-repo">
-      <img className="row-repo__img" src={avatarUrl} />
+      <img className="row-repo__img" alt="avatar" src={avatarUrl} />
       <div className="row-repo__text">
         <div className="text-container">
           <div className="text-container__top">
