@@ -1,11 +1,13 @@
-import React from 'react';
-import ListRepos from './components/ListRepos';
+import React from "react";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import ListReposContainer from "./components/ListReposContainer";
 
 function App() {
   return (
-    <>
-      <ListRepos></ListRepos>
-    </>
+    <Provider store={store}>
+      <ListReposContainer></ListReposContainer>
+    </Provider>
   );
 }
 
