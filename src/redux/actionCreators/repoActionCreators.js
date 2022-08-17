@@ -1,4 +1,4 @@
-import actionTypes from "./actionTypes";
+import actionTypes from "../actionTypes";
 
 export function loadReposSuccess(payloadData) {
   const { data, hasMore } = payloadData;

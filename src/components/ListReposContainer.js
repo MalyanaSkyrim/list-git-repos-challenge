@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { loadRepos } from "../redux/actionCreator";
+import { loadRepos } from "../redux/actionCreators/repoActionCreators";
 import ListRepos from "./ListRepos";
 import { connect } from "react-redux";
 

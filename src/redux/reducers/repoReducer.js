@@ -1,8 +1,7 @@
-import actionTypes from "./actionTypes";
-import { combineReducers } from "redux";
+import actionTypes from "../actionTypes";
 const initialState = {
   hasMore: true,
-  repos: []
+  repos: [],
 };
 
 const repoReducer = (state = initialState, action) => {
@@ -11,7 +10,7 @@ const repoReducer = (state = initialState, action) => {
     case actionTypes.LOADING_REPOS_SUCCESS:
       return {
         repos: [...state.repos, ...payload.repos],
-        hasMore: payload.hasMore
+        hasMore: payload.hasMore,
       };
 
     default:
@@ -19,6 +18,4 @@ const repoReducer = (state = initialState, action) => {
   }
 };
 
-export default combineReducers({
-  repoReducer
-});
+export default repoReducer;
